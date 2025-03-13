@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { createImage } from './parts/image.js';
+import { createBox } from './parts/cube.js';
 
 let scene, camera, renderer, stats, cube;
 
@@ -24,9 +26,7 @@ function init() {
 
 const createObjects = function () {
   // 立方体の作成
-  const geometry = new THREE.BoxGeometry();
-  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-  cube = new THREE.Mesh(geometry, material);
+  cube = createBox({ color: 0x00ff00, position: { x: 0, y: 0, z: 0 } });
   scene.add(cube);
 };
 
