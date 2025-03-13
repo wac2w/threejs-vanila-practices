@@ -3,6 +3,8 @@ import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { createImage } from './parts/image.js';
 import { createBox } from './parts/cube.js';
+import { createSphere } from './parts/sphere.js';
+import { getSphereVertices } from './utils/index.js';
 
 let scene, camera, renderer, stats, cube;
 
@@ -22,12 +24,22 @@ function init() {
   // FPS表示
   stats = new Stats();
   document.body.appendChild(stats.dom);
+
+  // カメラコントロールの作成
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
 }
 
 const createObjects = function () {
   // 立方体の作成
-  cube = createBox({ color: 0x00ff00, position: { x: 0, y: 0, z: 0 } });
-  scene.add(cube);
+  // cube = createBox({ color: 0x00ff00, position: { x: 0, y: 0, z: 0 } });
+  // scene.add(cube);
+
+  const sphere = createSphere({ radius: 1, widthSegments: 4, heightSegments: 2, wireframe: true });
+  scene.add(sphere);
+
+  const vertices = getSphereVertices(sphere);
+  console.log(vertices);
 };
 
 // アニメーションの設定
@@ -35,8 +47,8 @@ const animate = function () {
   requestAnimationFrame(animate);
 
   // オブジェクトの回転
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+  // cube.rotation.x += 0.01;
+  // cube.rotation.y += 0.01;
 
   stats.update();
 
